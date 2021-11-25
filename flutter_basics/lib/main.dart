@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './question.dart';
+import './answer.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,13 +15,14 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   var questions = [
-    'On which day we had our marriage wedding?',
-    'What\'s your favorite SO',
-    'Mercedes or BMW'
+    'What is iGo app?',
+    'When it was released?',
+    'Would you recommend'
   ];
 
-  var _questionIndex = 0; // the "_" means that its a private field, so it cannot be changed outside (encapsulation)
-  void answerQuestion() {
+  var _questionIndex =
+      0; // the "_" means that its a private field, so it cannot be changed outside (encapsulation)
+  void _answerQuestion() {
     //forces flutter to re(render) the UI. Not the all UI app but the widget that called the setState
     setState(() {
       _questionIndex = _questionIndex + 1;
@@ -36,22 +39,10 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(questions[_questionIndex]),
-            RaisedButton(
-              child: Text('Answer 1'),
-              onPressed: answerQuestion,
-            ),
-            RaisedButton(
-              child: Text('Answer 2'),
-              focusColor: Color(05),
-              color: Color(016),
-              onPressed: answerQuestion,
-            ),
-            RaisedButton(
-              child: Text('Answer 3'),
-              onPressed: () =>
-                  print('Now you have just printed annonymous function'),
-            )
+            Question(questions[_questionIndex]),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion)
           ],
         ),
         // backgroundColor: Color(00),
