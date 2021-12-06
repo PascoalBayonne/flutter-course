@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
+import 'package:flutter_basics/result.dart';
+import './quiz.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  var questions = [
+  final _questions = [
     {
       'Question': 'What is iGo app?',
       'Answers': ['A date app', 'An app to find pets', 'An app for events']
@@ -32,6 +32,10 @@ class MyAppState extends State<MyApp> {
   var _questionIndex =
       0; // the "_" means that its a private field, so it cannot be changed outside (encapsulation)
   void _answerQuestion() {
+    if (_questionIndex < _questions.length) {
+      print('We have more questions');
+    }
+
     //forces flutter to re(render) the UI. Not the all UI app but the widget that called the setState
     setState(() {
       _questionIndex = _questionIndex + 1;
@@ -44,17 +48,13 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('iGo')),
-        body: Column(
-          children: [
-            Question(
-              questions[_questionIndex]['Question'],
-            ),
-            ...(questions[_questionIndex]['Answers'] as List<String>)
-                .map((answer) {
-              return Answer(_answerQuestion, answer);
-            }).toList()
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerFunction: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
+            : Result(result: 'You did it boy'),
         // backgroundColor: Color(00),
       ),
     );
