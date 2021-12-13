@@ -16,22 +16,45 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   final _questions = [
     {
-      'Question': 'What is iGo app?',
-      'Answers': ['A date app', 'An app to find pets', 'An app for events']
+      'Question': 'Як буде дорога по-португалськи?',
+      'Answers': [
+        {'textQuestion': 'Caminha', 'score': 1},
+        {'textQuestion': 'Loja de cidadão', 'score': 0},
+        {'textQuestion': 'Estrada', 'score': 10}
+      ]
     },
     {
-      'Question': 'When it was released?',
-      'Answers': ['1975', '2077', '2022']
+      'Question': 'Який колір нашої машини?',
+      'Answers': [
+        {'textQuestion': 'Cinzenta', 'score': 10},
+        {'textQuestion': 'Branca', 'score': 0},
+        {'textQuestion': 'Laranja', 'score': 0}
+      ]
     },
     {
-      'Question': 'The dev team are from',
-      'Answers': ['USA', 'Bangladesh', 'Portugal']
+      'Question': 'Як буде Рожевий по-португалськи?',
+      'Answers': [
+        {'textQuestion': 'Cor de Prosa', 'score': 0},
+        {'textQuestion': 'Cor de Rosa', 'score': 10},
+        {'textQuestion': 'Cor de Laranja', 'score': 0}
+      ]
+    },
+    {
+      'Question': 'Як буде \'вчора\' по-португалськи? ?',
+      'Answers': [
+        {'textQuestion': 'Ontem', 'score': 10},
+        {'textQuestion': 'Amanhã, Swift, NodeJs', 'score': 0},
+        {'textQuestion': 'Hoje', 'score': 0}
+      ]
     }
   ];
 
   var _questionIndex =
       0; // the "_" means that its a private field, so it cannot be changed outside (encapsulation)
-  void _answerQuestion() {
+  int _totalScore = 0;
+  void _answerQuestion(int score) {
+    _totalScore += score;
+    print('============ Score: $_totalScore');
     if (_questionIndex < _questions.length) {
       print('We have more questions');
     }
@@ -50,11 +73,13 @@ class MyAppState extends State<MyApp> {
         appBar: AppBar(title: Text('iGo')),
         body: _questionIndex < _questions.length
             ? Quiz(
-                answerFunction: _answerQuestion,
+                answerQuestion: _answerQuestion,
                 questionIndex: _questionIndex,
                 questions: _questions,
               )
-            : Result(result: 'You did it boy'),
+            : Result(
+                resultScore: _totalScore,
+              ),
         // backgroundColor: Color(00),
       ),
     );
