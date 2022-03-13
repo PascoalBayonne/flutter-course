@@ -21,10 +21,11 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('iGo'),
-        ),
-        body: Column(
+      appBar: AppBar(
+        title: const Text('iGo'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -38,6 +39,8 @@ class MyHomePage extends StatelessWidget {
             ),
             UserTransaction()
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
